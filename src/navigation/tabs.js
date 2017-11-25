@@ -21,6 +21,8 @@ import Error from '@components/general/Error';
 import StyleGuide from '@containers/StyleGuideView';
 import Recipes from '@containers/recipes/Browse/BrowseContainer';
 import RecipeView from '@containers/recipes/RecipeView';
+import ChatList from '@containers/chats/List/ListContainer';
+import Chat from '@containers/chats/Chat/ChatContainer';
 
 const navbarPropsTabs = {
   ...AppConfig.navbarProps,
@@ -57,13 +59,27 @@ const scenes = (
     </Scene>
 
     <Scene
-      key={'timeline'}
-      {...navbarPropsTabs}
-      title={'Coming Soon'}
-      component={Placeholder}
-      icon={props => TabIcon({ ...props, icon: 'timeline' })}
-      analyticsDesc={'Placeholder: Coming Soon'}
-    />
+      key={'chatTab'}
+      {...AppConfig.navbarProps}
+      title={'Chat'}
+      icon={props => TabIcon({ ...props, icon: 'chat' })}
+    >
+      <Scene
+        {...AppConfig.navbarProps}
+        key={'chatList'}
+        component={ChatList}
+        getTitle={props => ((props.title) ? props.title : 'Chat')}
+        analyticsDesc={'Chat: List'}
+      />
+      <Scene
+        {...AppConfig.navbarProps}
+        key={'chat'}
+        component={Chat}
+        getTitle={props => ((props.title) ? props.title : 'Chat')}
+        analyticsDesc={'Chat: View'}
+        hideTabBar
+      />
+    </Scene>
 
     <Scene
       key={'error'}
